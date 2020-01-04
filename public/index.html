@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Lucky Draw</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="images/webapp_icons/touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/webapp_icons/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/webapp_icons/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/webapp_icons/touch-icon-ipad-retina.png">
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body onload="window.scrollTo(0, 1);">
+<div class="wrapper">
+    <div class="col span_1_of_3">
+        <div class="logo tooltip-container animated slideInLeft">
+            <img src="images/logo.svg" alt="Lucky Draw" class="shadowed"/>
+            <div class="tooltip hide">
+                <span class="text">Edit Items</span>
+                <span class="arrow-up"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col span_2_of_3">
+        <!--Form-->
+        <div class="main-container hide" id="edit-item-container">
+        </div>
+
+        <!--Start View-->
+        <div class="main-container animated fadeInDown" id="start-view-container">
+            <h1 class="ready-heading">Ready?</h1>
+            <button class="btn-start btn positive-btn">
+                <i class="fa fa-compass show animated rotateIn"></i>
+                <span class="text hide animated">Go!</span>
+            </button>
+        </div>
+
+        <!--Start View-->
+        <div class="main-container hide" id="rolling-view-container">
+            <div class="lds-circle"><div></div></div>
+        </div>
+
+        <!--Result-->
+        <div class="main-container hide" id="result-view-container">
+            <div id="winner-container">
+
+            </div>
+            <button class="btn-start btn positive-btn">
+                <i class="fa fa-compass show animated rotateIn"></i>
+                <span class="text hide animated">Again</span>
+            </button>
+            <div style="margin: 4rem 0 1rem .5rem;">
+                <button class="btn" id="save-result">Save Result</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="js/jquery-2.1.1.min.js"></script>
+<script src="js/filesaver/FileSaver.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/LuckyDrawMachine.js"></script>
+<script src="js/view.js"></script>
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/jsx" src="js/candidateListComponent.js"></script>
+</body>
+</html>
