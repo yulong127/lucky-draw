@@ -52,7 +52,7 @@
             <div id="winner-container">
 
             </div>
-            <button class="btn-start btn positive-btn">
+            <button class="btn-start btn positive-btn" onclick="playSpinSound()">
                 <i class="fa fa-compass show animated rotateIn"></i>
                 <span class="text hide animated">Again</span>
             </button>
@@ -69,5 +69,12 @@
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <script type="text/jsx" src="js/candidateListComponent.js"></script>
+<script>
+    function playSpinSound(){
+        var audio = document.getElementById("audio");
+        audio.play();
+    }
+</script>
+<audio id="audio" src="sound/lottery.mp3" ></audio>
 </body>
 </html>

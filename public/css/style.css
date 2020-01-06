@@ -5738,8 +5738,8 @@ input[type="checkbox"]+span:hover {
 .winner {
     width: 1em;
     height: 1em;
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
     overflow: visible;
 }
 
