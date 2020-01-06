@@ -10,7 +10,8 @@ let candidates = require('../conf').preloadCandidates;
 let settings = {
     isWithoutReplacement: false,
     numberOfDraws: 6,
-    fontSize: 200
+    fontSize: 200,
+    spinDuration: 1000
 };
 
 function deriveNumberOfDrawsAndEmit() {

@@ -5735,21 +5735,15 @@ input[type="checkbox"]+span:hover {
 }
 
 .winner {
+    width: 1em;
+    height: 1em;
     margin-right: 10px;
     margin-left: 10px;
-    /* font-size: 84px; */
-
 }
 
 .winner.masked {
-    width: 1em;
-    height: 1em;
     overflow: hidden;
-    /* line-height: 10em; */
     display: inline-block;
-
-    /* background: linear-gradient(to right, #f34433 8%, #a33024 18%, #f34433 33%);
-    background-size: 800px 104px; */
     position: relative;
 }
 

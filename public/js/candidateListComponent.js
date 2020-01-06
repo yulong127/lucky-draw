@@ -67,7 +67,7 @@
             this.handleChangeNumberOfDraws = this.handleChangeNumberOfDraws.bind(this);
             this.handleChangeFontSize = this.handleChangeFontSize.bind(this);
             this.state = {
-                items: [1, 2, 3, 4, 5, 6, 7],
+                items: [],
                 input: "",
                 isWithoutReplacement: false,
                 numberOfDraws: 6,
@@ -83,7 +83,8 @@
                         items: result.candidates,
                         isWithoutReplacement: result.isWithoutReplacement,
                         numberOfDraws: result.numberOfDraws,
-                        fontSize: result.fontSize
+                        fontSize: result.fontSize,
+                        spinDuration: result.spinDuration
                     }, () => {
                         if (result.candidates.length > 0) {
                             window.showEditListView();
@@ -96,24 +97,35 @@
                             $('#result-view-container').addClass('show animated fadeInDown');
 
                             const container = $('#winner-container').empty();
+                            let count = 0;
+                            
                             poorMan.forEach(() => {
+                                if (count == 2) {
+                                    container.append($("<h1>", {
+                                        class: "winner",
+                                        css: {
+                                            'font-size': this.state.fontSize + 'px',
+                                            'width': '0.6em'
+                                        }
+                                    }).append($("<span>").text("-")));
+                                }
+
                                 container.append($("<h1>", {
                                     class: "winner masked",
                                     css: {
-                                        'font-size': this.state.fontSize + 'px',
-                                        'min-height': this.state.fontSize
+                                        'font-size': this.state.fontSize + 'px'
                                     }
                                 }).append($("<span>", {
                                     class: "spinWheel"
                                 }).text("1 2 3 4 5 6 7 8 9 0")));
+                                count ++;
                             });
                             $('#save-result').off('click.save').on('click.save', () => {
                                 let blob = new Blob([poorMan.join('\n')], {type: "text/plain;charset=utf-8"});
                                 saveAs(blob, "result.txt");
                             });
 
-                            let count = 0;
-
+                            count = 0;
                             const t = setInterval(function () {
 
                                 $('.winner.masked:first')
@@ -121,12 +133,12 @@
                                 .empty()
                                 .append($("<span>", {
                                     class: "animated bounceIn"
-                                }).text(count == 2 ? '-' : poorMan[count]));
+                                }).text(poorMan[count]));
                                 count++;
                                 if (count === poorMan.length) {
                                     clearInterval(t);
                                 }
-                            }, 2000);
+                            }, this.state.spinDuration);
                         });
                     })
                 });
