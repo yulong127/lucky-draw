@@ -9,13 +9,13 @@ let candidates = require('../conf').preloadCandidates;
 
 let settings = {
     isWithoutReplacement: false,
-    numberOfDraws: 6,
+    numberOfDraws: 1,
     fontSize: 200,
     spinDuration: 1000
 };
 
 function deriveNumberOfDrawsAndEmit() {
-    const newNDraws = 6;
+    const newNDraws = 1;
     if (newNDraws !== settings.numberOfDraws) {
         settings.numberOfDraws = newNDraws;
         io.emitSettings(settings);
@@ -58,13 +58,13 @@ router.post("/settings", (req, res) => {
 router.get('/rand', function (req, res) {
     const result = [];
     for (let i = 0; i < settings.numberOfDraws; i++) {
-
         const randomNumber = _.random(candidates.length - 1),
             poorMan = candidates[randomNumber];
         result.push(poorMan);
         if (settings.isWithoutReplacement) {
             candidates = _.without(candidates, poorMan);
         }
+        console.log("Remaining candidate list: ", candidates);
     }
 
     io.emitRandResult(result);

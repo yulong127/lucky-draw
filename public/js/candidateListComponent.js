@@ -84,7 +84,8 @@
                         isWithoutReplacement: result.isWithoutReplacement,
                         numberOfDraws: result.numberOfDraws,
                         fontSize: result.fontSize,
-                        spinDuration: result.spinDuration
+                        spinDuration: result.spinDuration,
+                        spinning: false
                     }, () => {
                         if (result.candidates.length > 0) {
                             window.showEditListView();
@@ -99,6 +100,7 @@
                             const container = $('#winner-container').empty();
                             let count = 0;
                             
+                            this.state.spinning = true;
                             for(var i = 0; i < poorMan[0].length; i++) {
                                 if (i == 2) {
                                     container.append($("<h1>", {
@@ -120,14 +122,18 @@
                                 }).text("1 2 3 4 5 6 7 8 9 0")));
                             };
                             $('#save-result').off('click.save').on('click.save', () => {
-                                let blob = new Blob([poorMan.join('\n')], {type: "text/plain;charset=utf-8"});
-                                saveAs(blob, "result.txt");
+                                console.log("saving result...");
+                                $('#winner-trophy-list').append($("<h1>", {
+                                    class: "winner-trophy"
+                                }).text(poorMan[0]));
+                                // let blob = new Blob([poorMan.join('\n')], {type: "text/plain;charset=utf-8"});
+                                // saveAs(blob, "result.txt");
                             });
 
                             count = 0;
                             const t = setInterval(function () {
                                 var winnerItem = $("<span>", {
-                                    class: "animated bounceIn"
+                                    class: "animated impress"
                                 }).text(poorMan[0][count]).hide();
 
                                 $('.winner.masked:first')
@@ -138,6 +144,7 @@
                                 count++;
                                 if (count === poorMan[0].length) {
                                     clearInterval(t);
+                                    this.state.spinning = false;
                                 }
                             }, this.state.spinDuration);
                         });
