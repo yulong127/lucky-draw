@@ -67,11 +67,11 @@
             this.handleChangeNumberOfDraws = this.handleChangeNumberOfDraws.bind(this);
             this.handleChangeFontSize = this.handleChangeFontSize.bind(this);
             this.state = {
-                items: [],
+                items: [1, 2, 3, 4, 5, 6, 7],
                 input: "",
                 isWithoutReplacement: false,
-                numberOfDraws: 1,
-                fontSize: 24
+                numberOfDraws: 6,
+                fontSize: 100
             }
         }
 
@@ -103,7 +103,9 @@
                                         'font-size': this.state.fontSize + 'px',
                                         'min-height': this.state.fontSize
                                     }
-                                }));
+                                }).append($("<span>", {
+                                    class: "spinWheel"
+                                }).text("1 2 3 4 5 6 7 8 9 0")));
                             });
                             $('#save-result').off('click.save').on('click.save', () => {
                                 let blob = new Blob([poorMan.join('\n')], {type: "text/plain;charset=utf-8"});
@@ -114,16 +116,17 @@
 
                             const t = setInterval(function () {
 
-                                $('.winner.masked:first').removeClass('masked')
-                                    .append($("<span>", {
-                                        class: "fa fa-trophy"
-                                    }))
-                                    .append($("<span>").text(poorMan[count]));
+                                $('.winner.masked:first')
+                                .removeClass('masked')
+                                .empty()
+                                .append($("<span>", {
+                                    class: "animated bounceIn"
+                                }).text(count == 2 ? '-' : poorMan[count]));
                                 count++;
                                 if (count === poorMan.length) {
                                     clearInterval(t);
                                 }
-                            }, 1000);
+                            }, 2000);
                         });
                     })
                 });
@@ -225,21 +228,21 @@
                                     Delete All
                                 </a>
                             </div>
-                            <div style={{marginBottom: 16, marginTop: 16 }}>
+                            {/* <div style={{marginBottom: 16, marginTop: 16 }}>
                                 <label className={"block"} style={{marginBottom: 2}}>Number Of Draws per batch</label>
                                 <input value={this.state.numberOfDraws} type="number" placeholder="Number Of Draws" id="number-of-draws"
                                        onChange={this.handleChangeNumberOfDraws} min={1} max={Math.max(this.state.items.length, 1)}/>
-                            </div>
-                            <div style={{marginBottom: 16, marginTop: 16}}>
+                            </div> */}
+                            {/* <div style={{marginBottom: 16, marginTop: 16}}>
                                 <label className={"block"} style={{marginBottom: 2}}>Font Size (in pixel)</label>
                                 <input value={this.state.fontSize} type="number" placeholder="Font Size (in pixel)" id="font-size"
                                        onChange={this.handleChangeFontSize}/>
-                            </div>
-                            <label htmlFor="rand-without-replacement" className="text-left">
+                            </div> */}
+                            {/* <label htmlFor="rand-without-replacement" className="text-left">
                                 <input checked={!!this.state.isWithoutReplacement} onChange={this.setWithoutReplacement} type="checkbox"
                                        id="rand-without-replacement" name="without-replacement"/>
                                 Draw without replacement
-                            </label>
+                            </label> */}
                         </div>
                         <div className="btn-set">
                             <button className="btn primary-btn btn-done" onClick={this.handleInputDone}>Done</button>

@@ -9,12 +9,12 @@ let candidates = require('../conf').preloadCandidates;
 
 let settings = {
     isWithoutReplacement: false,
-    numberOfDraws: 1,
-    fontSize: 24
+    numberOfDraws: 6,
+    fontSize: 200
 };
 
 function deriveNumberOfDrawsAndEmit() {
-    const newNDraws = Math.max(1, Math.min(candidates.length, settings.numberOfDraws));
+    const newNDraws = 6;
     if (newNDraws !== settings.numberOfDraws) {
         settings.numberOfDraws = newNDraws;
         io.emitSettings(settings);
