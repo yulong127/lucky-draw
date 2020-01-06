@@ -70,7 +70,7 @@
                 items: [],
                 input: "",
                 isWithoutReplacement: false,
-                numberOfDraws: 6,
+                numberOfDraws: 1,
                 fontSize: 100
             }
         }
@@ -99,8 +99,8 @@
                             const container = $('#winner-container').empty();
                             let count = 0;
                             
-                            poorMan.forEach(() => {
-                                if (count == 2) {
+                            for(var i = 0; i < poorMan[0].length; i++) {
+                                if (i == 2) {
                                     container.append($("<h1>", {
                                         class: "winner",
                                         css: {
@@ -118,8 +118,7 @@
                                 }).append($("<span>", {
                                     class: "spinWheel"
                                 }).text("1 2 3 4 5 6 7 8 9 0")));
-                                count ++;
-                            });
+                            };
                             $('#save-result').off('click.save').on('click.save', () => {
                                 let blob = new Blob([poorMan.join('\n')], {type: "text/plain;charset=utf-8"});
                                 saveAs(blob, "result.txt");
@@ -127,15 +126,17 @@
 
                             count = 0;
                             const t = setInterval(function () {
+                                var winnerItem = $("<span>", {
+                                    class: "animated bounceIn"
+                                }).text(poorMan[0][count]).hide();
 
                                 $('.winner.masked:first')
                                 .removeClass('masked')
                                 .empty()
-                                .append($("<span>", {
-                                    class: "animated bounceIn"
-                                }).text(poorMan[count]));
+                                .append(winnerItem);
+                                winnerItem.show('normal');
                                 count++;
-                                if (count === poorMan.length) {
+                                if (count === poorMan[0].length) {
                                     clearInterval(t);
                                 }
                             }, this.state.spinDuration);

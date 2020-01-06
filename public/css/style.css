@@ -5732,6 +5732,7 @@ input[type="checkbox"]+span:hover {
 #winner-container {
     display: flex;
     flex-direction: row;
+    overflow: visible;
 }
 
 .winner {
@@ -5739,6 +5740,7 @@ input[type="checkbox"]+span:hover {
     height: 1em;
     margin-right: 10px;
     margin-left: 10px;
+    overflow: visible;
 }
 
 .winner.masked {
