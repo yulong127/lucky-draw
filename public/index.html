@@ -23,9 +23,6 @@
                 <span class="arrow-up"></span>
             </div>
         </div>
-        <div style="margin: 4rem 0 1rem .5rem;">
-            <button class="btn" id="save-result">Save Result</button>
-        </div>
         <div id="winner-trophy"></div>
     </div>
     <div class="col span_2_of_3">
@@ -49,13 +46,20 @@
 
         <!--Result-->
         <div class="main-container hide" id="result-view-container">
-            <div id="winner-container">
+            <div id="winner-id-container">
+
+            </div>
+            <div id="winner-name-container">
 
             </div>
             <button class="btn-start btn positive-btn" onclick="playSpinSound()">
                 <i class="fa fa-compass show animated rotateIn"></i>
                 <span class="text hide animated">Again</span>
             </button>
+            <div style="margin: 4rem 0 1rem .5rem;">
+                <button class="btn" id="save-result">Save Result</button>
+            </div>
+            <audio id="lottery-sound" src="sounds/lottery.mp3" ></audio>
         </div>
 
     </div>
@@ -69,12 +73,11 @@
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <script type="text/jsx" src="js/candidateListComponent.js"></script>
-<script>
+<!-- <script>
     function playSpinSound(){
         var audio = document.getElementById("audio");
         audio.play();
     }
-</script>
-<audio id="audio" src="sounds/lottery.mp3" ></audio>
+</script> -->
 </body>
 </html>

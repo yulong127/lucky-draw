@@ -71,7 +71,8 @@
                 input: "",
                 isWithoutReplacement: false,
                 numberOfDraws: 1,
-                fontSize: 100
+                winnerCodeFontSize: 1,
+                winnerNameFontSize: 1
             }
         }
 
@@ -83,9 +84,9 @@
                         items: result.candidates,
                         isWithoutReplacement: result.isWithoutReplacement,
                         numberOfDraws: result.numberOfDraws,
-                        fontSize: result.fontSize,
-                        spinDuration: result.spinDuration,
-                        spinning: false
+                        winnerCodeFontSize: result.winnerCodeFontSize,
+                        winnerNameFontSize: result.winnerNameFontSize,
+                        spinDuration: result.spinDuration
                     }, () => {
                         if (result.candidates.length > 0) {
                             window.showEditListView();
@@ -97,16 +98,20 @@
                             $('.main-container').addClass('hide');
                             $('#result-view-container').addClass('show animated fadeInDown');
 
-                            const container = $('#winner-container').empty();
+                            const audio = new Audio("/sounds/lottery.mp3");
+                            audio.play();
+
+                            const container = $('#winner-id-container').empty();
+                            const nameContainer = $('#winner-name-container').empty();
+
+                            // audio.play();
                             let count = 0;
-                            
-                            this.state.spinning = true;
                             for(var i = 0; i < poorMan[0].length; i++) {
                                 if (i == 2) {
                                     container.append($("<h1>", {
                                         class: "winner",
                                         css: {
-                                            'font-size': this.state.fontSize + 'px',
+                                            'font-size': this.state.winnerCodeFontSize + 'px',
                                             'width': '0.6em'
                                         }
                                     }).append($("<span>").text("-")));
@@ -115,19 +120,18 @@
                                 container.append($("<h1>", {
                                     class: "winner masked",
                                     css: {
-                                        'font-size': this.state.fontSize + 'px'
+                                        'font-size': this.state.winnerCodeFontSize + 'px'
                                     }
                                 }).append($("<span>", {
                                     class: "spinWheel"
                                 }).text("1 2 3 4 5 6 7 8 9 0")));
                             };
                             $('#save-result').off('click.save').on('click.save', () => {
-                                console.log("saving result...");
-                                $('#winner-trophy-list').append($("<h1>", {
-                                    class: "winner-trophy"
-                                }).text(poorMan[0]));
-                                // let blob = new Blob([poorMan.join('\n')], {type: "text/plain;charset=utf-8"});
-                                // saveAs(blob, "result.txt");
+                                // $('#winner-trophy-list').append($("<h1>", {
+                                //     class: "winner-trophy"
+                                // }).text(poorMan[0]));
+                                let blob = new Blob([poorMan.join('\n')], {type: "text/plain;charset=utf-8"});
+                                saveAs(blob, "result.txt");
                             });
 
                             count = 0;
@@ -142,9 +146,26 @@
                                 .append(winnerItem);
                                 winnerItem.show('normal');
                                 count++;
+                                /**
+                                 * End of spin
+                                 */
                                 if (count === poorMan[0].length) {
                                     clearInterval(t);
-                                    this.state.spinning = false;
+                                    // this.state.spinning = false;
+
+                                    /**
+                                     * Update winner name
+                                     */
+                                    var winnerName = $("<h1>", {
+                                        class: "animated lightSpeedIn",
+                                        css: {
+                                            'font-size': 100
+                                        }
+                                    }).text(poorMan[0]).hide();
+
+                                    nameContainer.append(winnerName);
+                                    winnerName.show('normal');
+                                    audio.pause();
                                 }
                             }, this.state.spinDuration);
                         });
@@ -188,11 +209,11 @@
         handleChangeFontSize(e) {
             const v = e.target.value;
             this.setState({
-                fontSize: v
+                winnerCodeFontSize: v
             }, () => {
                 if (!isNaN(v)) {
 
-                    machine.setSettings({fontSize: +v});
+                    machine.setSettings({winnerCodeFontSize: +v});
                 }
             })
         }
@@ -255,7 +276,7 @@
                             </div> */}
                             {/* <div style={{marginBottom: 16, marginTop: 16}}>
                                 <label className={"block"} style={{marginBottom: 2}}>Font Size (in pixel)</label>
-                                <input value={this.state.fontSize} type="number" placeholder="Font Size (in pixel)" id="font-size"
+                                <input value={this.state.winnerCodeFontSize} type="number" placeholder="Font Size (in pixel)" id="font-size"
                                        onChange={this.handleChangeFontSize}/>
                             </div> */}
                             {/* <label htmlFor="rand-without-replacement" className="text-left">
