@@ -99,13 +99,23 @@
         });
 
         function go() {
+            /**
+             * New round
+             */
             if ($('.item-list li').length > 0) {
-
+                // $('#winner-trophy').append('<span>abc</span>');
                 machine.rand();
             } else {
+                /**
+                 * Open settings to setup candidates
+                 */
                 showEditListView();
             }
         }
+
+        /**
+         * Click start or press Enter
+         */
 
         $('.btn-start').bind('click', function () {
             go();

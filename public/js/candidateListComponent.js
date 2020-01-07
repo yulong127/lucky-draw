@@ -98,15 +98,22 @@
                             $('.main-container').addClass('hide');
                             $('#result-view-container').addClass('show animated fadeInDown');
 
-                            const audio = new Audio("/sounds/lottery.mp3");
+                            const audio = document.getElementById("lottery-sound");
                             audio.play();
 
                             const container = $('#winner-id-container').empty();
                             const nameContainer = $('#winner-name-container').empty();
+                            const winner = (poorMan + '').split('\t');
+                            const winnerId = winner[0].replace(' ', '').replace('-', '');
+                            const winnerName = winner[1];
+                            console.log("winner: " + winner);
 
                             // audio.play();
                             let count = 0;
-                            for(var i = 0; i < poorMan[0].length; i++) {
+                            for(var i = 0; i < winnerId.length; i++) {
+                                /**
+                                 * Before the third item, insert a dash
+                                 */
                                 if (i == 2) {
                                     container.append($("<h1>", {
                                         class: "winner",
@@ -127,9 +134,10 @@
                                 }).text("1 2 3 4 5 6 7 8 9 0")));
                             };
                             $('#save-result').off('click.save').on('click.save', () => {
-                                // $('#winner-trophy-list').append($("<h1>", {
-                                //     class: "winner-trophy"
-                                // }).text(poorMan[0]));
+                                const winnerList = document.getElementById('winner-trophy-list');
+                                winnerList.append($("<h1>", {
+                                    class: "winner-trophy"
+                                }).text(poorMan[0]));
                                 let blob = new Blob([poorMan.join('\n')], {type: "text/plain;charset=utf-8"});
                                 saveAs(blob, "result.txt");
                             });
@@ -138,7 +146,7 @@
                             const t = setInterval(function () {
                                 var winnerItem = $("<span>", {
                                     class: "animated impress"
-                                }).text(poorMan[0][count]).hide();
+                                }).text(winnerId[count]).hide();
 
                                 $('.winner.masked:first')
                                 .removeClass('masked')
@@ -149,22 +157,22 @@
                                 /**
                                  * End of spin
                                  */
-                                if (count === poorMan[0].length) {
+                                if (count === winnerId.length) {
                                     clearInterval(t);
                                     // this.state.spinning = false;
 
                                     /**
                                      * Update winner name
                                      */
-                                    var winnerName = $("<h1>", {
+                                    var winnerNameText = $("<h1>", {
                                         class: "animated lightSpeedIn",
                                         css: {
                                             'font-size': 100
                                         }
-                                    }).text(poorMan[0]).hide();
+                                    }).text(winnerName).hide();
 
-                                    nameContainer.append(winnerName);
-                                    winnerName.show('normal');
+                                    nameContainer.append(winnerNameText);
+                                    winnerNameText.show('normal');
                                     audio.pause();
                                 }
                             }, this.state.spinDuration);

@@ -8,11 +8,11 @@ const settingList = ["isWithoutReplacement", "numberOfDraws", "winnerCodeFontSiz
 let candidates = require('../conf').preloadCandidates;
 
 let settings = {
-    isWithoutReplacement: false,
+    isWithoutReplacement: true,
     numberOfDraws: 1,
     winnerCodeFontSize: 200,
     winnerNameFontSize: 100,
-    spinDuration: 2000
+    spinDuration: 200
 };
 
 function deriveNumberOfDrawsAndEmit() {
@@ -63,9 +63,10 @@ router.get('/rand', function (req, res) {
             poorMan = candidates[randomNumber];
         result.push(poorMan);
         if (settings.isWithoutReplacement) {
+            console.log("Candidate removed: " + poorMan);
             candidates = _.without(candidates, poorMan);
         }
-        console.log("Remaining candidate list: ", candidates);
+        console.log("Candidates remaining: " + candidates.length);
     }
 
     io.emitRandResult(result);
