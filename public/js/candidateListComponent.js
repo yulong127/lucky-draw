@@ -93,24 +93,66 @@
                         }
                         machine.onResultChange((poorMan) => {
 
+                            /**
+                             * Start audio and a new round
+                             */
+                            const audio = document.getElementById("lottery-sound");
+                            audio.play();
+                            window.spinning = true;
+
                             // TODO convert these to React style
                             $('.main-container').removeClass('show animated fadeOutUp');
                             $('.main-container').addClass('hide');
                             $('#result-view-container').addClass('show animated fadeInDown');
 
-                            const audio = document.getElementById("lottery-sound");
-                            audio.play();
-
-                            const container = $('#winner-id-container').empty();
-                            const nameContainer = $('#winner-name-container').empty();
+                            /**
+                             * Generate new winner info
+                             */
                             const winner = (poorMan + '').split('\t');
-                            const winnerId = winner[0].replace(' ', '').replace('-', '');
+                            const winnerId = winner[0].replace(' ', '');
+                            const winnerNumber = winnerId.replace('-', '');
                             const winnerName = winner[1];
                             console.log("winner: " + winner);
+                            
+                            /**
+                             * Animate-out current winner if exist
+                             */
+                            const nameContainer = document.getElementById('winner-name-container');
+                            if (nameContainer.childElementCount > 0) {
+                                nameContainer.firstElementChild.classList.remove('lightSpeedIn');
+                                nameContainer.firstElementChild.classList.add('zoomOutLeft');
+                                console.log(nameContainer.firstElementChild);
+                            }
 
-                            // audio.play();
+                            /**
+                             * Animate-in the last winner if exist
+                             */
+                            var winnerList = document.getElementById('winner-trophy-list');
+                            if (winnerList.hasChildNodes()) {
+                                const t = setInterval(function () {
+                                    winnerList.lastChild.style.display = 'block';
+                                    clearInterval(t);
+                                }, 500);
+                            }
+
+                            /**
+                             * Add the new winner (hidden)
+                             */
+                            const t1 = setInterval(function () {
+                                var winnerTrophyItem = document.createElement('h1');
+                                winnerTrophyItem.classList.add("winner-trophy-item", "animated", "bounceIn");
+                                winnerTrophyItem.innerHTML = winnerId + '<br/>' + winnerName;
+                                winnerTrophyItem.style.display = "none";
+                                winnerList.appendChild(winnerTrophyItem);
+                                clearInterval(t1);
+                            }, 1000);
+                            /**
+                             * Generate new spin wheel for new winner
+                             */
+                            const container = $('#winner-id-container').empty();
+                            
                             let count = 0;
-                            for(var i = 0; i < winnerId.length; i++) {
+                            for(var i = 0; i < winnerNumber.length; i++) {
                                 /**
                                  * Before the third item, insert a dash
                                  */
@@ -133,20 +175,15 @@
                                     class: "spinWheel"
                                 }).text("1 2 3 4 5 6 7 8 9 0")));
                             };
-                            $('#save-result').off('click.save').on('click.save', () => {
-                                const winnerList = document.getElementById('winner-trophy-list');
-                                winnerList.append($("<h1>", {
-                                    class: "winner-trophy"
-                                }).text(poorMan[0]));
-                                let blob = new Blob([poorMan.join('\n')], {type: "text/plain;charset=utf-8"});
-                                saveAs(blob, "result.txt");
-                            });
 
+                            /**
+                             * Reveal winner Id number by number
+                             */
                             count = 0;
                             const t = setInterval(function () {
                                 var winnerItem = $("<span>", {
                                     class: "animated impress"
-                                }).text(winnerId[count]).hide();
+                                }).text(winnerNumber[count]).hide();
 
                                 $('.winner.masked:first')
                                 .removeClass('masked')
@@ -157,23 +194,24 @@
                                 /**
                                  * End of spin
                                  */
-                                if (count === winnerId.length) {
+                                if (count === winnerNumber.length) {
                                     clearInterval(t);
                                     // this.state.spinning = false;
 
                                     /**
                                      * Update winner name
                                      */
-                                    var winnerNameText = $("<h1>", {
-                                        class: "animated lightSpeedIn",
-                                        css: {
-                                            'font-size': 100
-                                        }
-                                    }).text(winnerName).hide();
-
-                                    nameContainer.append(winnerNameText);
-                                    winnerNameText.show('normal');
+                                    var winnerNameText = document.createElement('h1');
+                                    winnerNameText.classList.add("animated", "lightSpeedIn");
+                                    winnerNameText.style['font-size'] = '100px';
+                                    winnerNameText.innerHTML = winnerName;
+                                    winnerNameText.style.display = 'none';
+                                    
+                                    nameContainer.querySelectorAll('*').forEach(n => n.remove());
+                                    nameContainer.appendChild(winnerNameText);
+                                    winnerNameText.style.display = 'block';
                                     audio.pause();
+                                    window.spinning = false;
                                 }
                             }, this.state.spinDuration);
                         });

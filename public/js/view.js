@@ -118,11 +118,15 @@
          */
 
         $('.btn-start').bind('click', function () {
-            go();
+            if (!window.spinning) {
+                go();
+            }
         });
         $('body').on('keydown', function (e) {
-            if ((e.keyCode || e.which) == 13 && $('.btn-start').is(':visible')) {
-                go();
+            if ((e.keyCode || e.which) == 13 && $('#edit-item-container').is(':hidden')) {
+                if (!window.spinning) {
+                    go();
+                }
             }
         });
 

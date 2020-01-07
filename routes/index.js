@@ -36,6 +36,7 @@ router.post("/addCandidate", function (req, res) {
 router.post('/removeCandidate', function (req, res) {
     const val = req.param('candidate');
     candidates = _.without(candidates, val);
+    console.log("Candidate removed: " + poorMan);
     boardcastCandidates();
     deriveNumberOfDrawsAndEmit();
     res.end();
@@ -63,7 +64,6 @@ router.get('/rand', function (req, res) {
             poorMan = candidates[randomNumber];
         result.push(poorMan);
         if (settings.isWithoutReplacement) {
-            console.log("Candidate removed: " + poorMan);
             candidates = _.without(candidates, poorMan);
         }
         console.log("Candidates remaining: " + candidates.length);
