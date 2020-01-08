@@ -116,6 +116,13 @@
             }
         }
 
+        function announceWinners() {
+            document.getElementById('winner-id-container').style.display = 'none';
+            document.getElementById('winner-name-container').style.display = 'none';
+            document.getElementById('winner-trophy-list').style.display = 'block';
+            document.getElementById('lottery-sound').play();
+        }
+
         /**
          * Click start or press Enter
          */
@@ -145,13 +152,6 @@
                 }
             }
         });
-
-        function announceWinners() {
-            document.getElementById('winner-id-container').style.display = 'none';
-            document.getElementById('winner-name-container').style.display = 'none';
-            document.getElementById('winner-trophy-list').style.display = 'block';
-            document.getElementById('lottery-sound').play();
-        }
 
 //        Load Start Button View
         $('.btn-start').mouseenter(function () {

@@ -5497,12 +5497,13 @@ body {
 h1, h2 {
     margin: 63px 0 20px 0;
     font-size: 1.8em;
-    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3)
+    text-shadow: 5px 5px 10px rgba(0,0,0, 0.8);
 }
 
 h2 {
     font-size: 1.2em;
-    margin: 20px 0 0 0
+    margin: 20px 0 0 0;
+    text-shadow: 5px 5px 5px rgba(0,0,0, 0.8);
 }
 
 a {
@@ -5819,6 +5820,7 @@ input[type="checkbox"]+span:hover {
 
 .winner-trophy-item  {
     text-align: center;
+    margin-top: 50px;
 }
 
 .winner-trophy-item.bronze {
@@ -5834,6 +5836,12 @@ input[type="checkbox"]+span:hover {
 .winner-trophy-item.gold {
     color: gold;
     font-size: 3em;
+}
+
+#copyright {
+    position: absolute;
+    bottom: 30px;
+    right: 50px;
 }
 
 .float-right {
