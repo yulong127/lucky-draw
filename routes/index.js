@@ -5,8 +5,6 @@ const _ = require('lodash'),
 
 const settingList = ["isWithoutReplacement", "numberOfDraws", "winnerCodeFontSize", "winnerNameFontSize"];
 
-let candidates = require('../conf').preloadCandidates;
-
 let settings = {
     isWithoutReplacement: true,
     numberOfDraws: 1,
@@ -22,6 +20,8 @@ function deriveNumberOfDrawsAndEmit() {
         io.emitSettings(settings);
     }
 }
+
+let candidates = require('../conf').preloadCandidates;
 
 router.post("/addCandidate", function (req, res) {
     const val = req.param('candidate');
