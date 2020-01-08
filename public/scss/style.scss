@@ -121,31 +121,6 @@ ul, ol {
   }
 }
 
-.rolling-view-container {
-  position: relative;
-  -webkit-perspective: 800;
-}
-
-#rolling-view-container {
-  position: fixed;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  display: none;
-
-  &.hide {
-    display: none;
-  }
-
-  &.show {
-
-    display: flex;
-  }
-
-}
-
 .rolling-list {
   overflow-y: hidden;
   /* Ensure that we're in 3D space */

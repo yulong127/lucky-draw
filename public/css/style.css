@@ -217,11 +217,15 @@ table {
 }
 
 .span_2_of_3 {
-    width: 76.13%
+    width: 60%;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .span_1_of_3 {
-    width: 22.26%
+    width: 100%;
+    height: 150px
 }
 
 @media only screen and (max-width: 480px) {
@@ -2085,7 +2089,11 @@ Copyright (c) 2013 Daniel Eden
 
 .rotateIn {
     -webkit-animation-name: rotateIn;
-    animation-name: rotateIn
+    -webkit-animation-duration: 1s;
+    -webkit-animation-delay: 0.5s;
+    animation-name: rotateIn;
+    animation-duration: 1s;
+    animation-delay: 0.5s;
 }
 
 @-webkit-keyframes rotateInDownLeft {
@@ -5463,7 +5471,13 @@ Copyright (c) 2013 Daniel Eden
 
 body {
     font-family: 'PT Sans', helvetica, Arial, verdana, sans-serif;
-    background: #f34433 url("../images/bg_stars.svg") no-repeat top left;
+    /* background-image: url('../images/live-casino-online-malaysia.jpg'); */
+    background-color: #8d1205;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
     font-size: 18px;
     line-height: 1;
     margin: 0;
@@ -5554,29 +5568,6 @@ ul li, ol li {
 
 .item-list li:hover .delete:hover {
     color: #602a25
-}
-
-.rolling-view-container {
-    position: relative;
-    -webkit-perspective: 800
-}
-
-#rolling-view-container {
-    position: fixed;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    display: none
-}
-
-#rolling-view-container.hide {
-    display: none
-}
-
-#rolling-view-container.show {
-    display: flex
 }
 
 .rolling-list {
@@ -5794,6 +5785,14 @@ input[type="checkbox"]+span:hover {
     }
 }
 
+#ready-heading {
+    font-size: 200px;
+    text-align: center;
+    margin-top: 200px;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+}
+
 #winner-id-container {
     display: flex;
     flex-direction: row;
@@ -5812,6 +5811,29 @@ input[type="checkbox"]+span:hover {
     overflow: hidden;
     display: inline-block;
     position: relative;
+}
+
+#winner-trophy-list {
+    padding-top: 3px;
+}
+
+.winner-trophy-item  {
+    text-align: center;
+}
+
+.winner-trophy-item.bronze {
+    color: coral;
+    font-weight: lighter;
+    font-size: 1.7em
+}
+.winner-trophy-item.silver {
+    color: silver;
+    font-weight: normal;
+    font-size: 2em;
+}
+.winner-trophy-item.gold {
+    color: gold;
+    font-size: 3em;
 }
 
 .float-right {

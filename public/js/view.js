@@ -7,9 +7,11 @@
 
 //        Toggle Views
     function showEditListView() {
+        console.log('showEditListView');
         $('.main-container').removeClass('show animated fadeOutUp');
         $('.main-container').addClass('hide');
         $('#edit-item-container').addClass('show animated fadeInDown');
+        document.body.style.backgroundImage = 'url(../images/red-casino-background.jpg)';
     }
 
     window.showEditListView = showEditListView;
@@ -30,6 +32,7 @@
         });
 
         function showStartView() {
+            console.log('showStartView');
             $('.main-container').removeClass('show animated fadeOutUp');
             $('.main-container').addClass('hide');
             $('#start-view-container').addClass('show animated fadeInDown');
@@ -124,11 +127,31 @@
         });
         $('body').on('keydown', function (e) {
             if ((e.keyCode || e.which) == 13 && $('#edit-item-container').is(':hidden')) {
+                if (window.winnerCount == undefined) window.winnerCount = 0;
                 if (!window.spinning) {
-                    go();
+                    /**
+                     * Spin 3 times
+                     */
+                    if (window.winnerCount < 3) {
+                        go();
+                        console.log("winnerCount: " + window.winnerCount);
+                    }
+                    /**
+                     * Announce winners
+                     */
+                    else {
+                        announceWinners();
+                    }
                 }
             }
         });
+
+        function announceWinners() {
+            document.getElementById('winner-id-container').style.display = 'none';
+            document.getElementById('winner-name-container').style.display = 'none';
+            document.getElementById('winner-trophy-list').style.display = 'block';
+            document.getElementById('lottery-sound').play();
+        }
 
 //        Load Start Button View
         $('.btn-start').mouseenter(function () {

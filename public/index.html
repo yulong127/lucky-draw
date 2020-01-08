@@ -15,7 +15,7 @@
 </head>
 <body onload="window.scrollTo(0, 1);">
 <div class="wrapper">
-    <div class="col span_1_of_3">
+    <div class="span_1_of_3">
         <div class="logo tooltip-container animated slideInLeft">
             <img src="images/logo.svg" alt="Lucky Draw" class="shadowed"/>
             <div class="tooltip hide">
@@ -23,25 +23,19 @@
                 <span class="arrow-up"></span>
             </div>
         </div>
-        <div id="winner-trophy-list"></div>
     </div>
-    <div class="col span_2_of_3">
+    <div class="span_2_of_3">
         <!--Form-->
         <div class="main-container hide" id="edit-item-container">
         </div>
 
         <!--Start View-->
         <div class="main-container animated fadeInDown" id="start-view-container">
-            <h1 class="ready-heading">Ready?</h1>
+            <h1 id="ready-heading" class="animated zoomIn">Ready?</h1>
             <!-- <button class="btn-start btn positive-btn">
                 <i class="fa fa-compass show animated rotateIn"></i>
                 <span class="text hide animated">Go!</span>
             </button> -->
-        </div>
-
-        <!--Start View-->
-        <div class="main-container hide" id="rolling-view-container">
-            <div class="lds-circle"><div></div></div>
         </div>
 
         <!--Result-->
@@ -52,6 +46,7 @@
             <div id="winner-name-container">
 
             </div>
+            <div id="winner-trophy-list" class="animated rotateIn" style="display: none;"></div>
             <!-- <button class="btn-start btn positive-btn">
                 <i class="fa fa-compass show animated rotateIn"></i>
                 <span class="text hide animated">Again</span>

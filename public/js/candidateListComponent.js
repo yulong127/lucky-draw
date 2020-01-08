@@ -120,32 +120,47 @@
                             const nameContainer = document.getElementById('winner-name-container');
                             if (nameContainer.childElementCount > 0) {
                                 nameContainer.firstElementChild.classList.remove('lightSpeedIn');
-                                nameContainer.firstElementChild.classList.add('zoomOutLeft');
-                                console.log(nameContainer.firstElementChild);
+                                nameContainer.firstElementChild.classList.add('zoomOutDown');
                             }
 
                             /**
                              * Animate-in the last winner if exist
                              */
                             var winnerList = document.getElementById('winner-trophy-list');
-                            if (winnerList.hasChildNodes()) {
-                                const t = setInterval(function () {
-                                    winnerList.lastChild.style.display = 'block';
-                                    clearInterval(t);
-                                }, 500);
-                            }
+                            // if (winnerList.hasChildNodes()) {
+                            //     const t = setInterval(function () {
+                            //         winnerList.lastChild.style.display = 'block';
+                            //         clearInterval(t);
+                            //     }, 500);
+                            // }
 
                             /**
-                             * Add the new winner (hidden)
+                             * Add the new winner to announcement list
                              */
-                            const t1 = setInterval(function () {
-                                var winnerTrophyItem = document.createElement('h1');
-                                winnerTrophyItem.classList.add("winner-trophy-item", "animated", "bounceIn");
-                                winnerTrophyItem.innerHTML = winnerId + '<br/>' + winnerName;
-                                winnerTrophyItem.style.display = "none";
-                                winnerList.appendChild(winnerTrophyItem);
-                                clearInterval(t1);
-                            }, 1000);
+                            var winnerTrophyItem = document.createElement('h1');
+                            winnerTrophyItem.classList.add("winner-trophy-item");
+                            winnerTrophyItem.innerHTML = winnerId + '<br/>' + winnerName;
+
+                            winnerList.insertBefore(winnerTrophyItem, winnerList.firstChild);
+                            window.winnerCount++;
+
+                            /**
+                             * Decorate winner item based on position
+                             */
+                            switch (window.winnerCount) {
+                                case 1:
+                                    winnerTrophyItem.classList.add("bronze");
+                                    break;
+                                case 2:
+                                    winnerTrophyItem.classList.add("silver");
+                                    break;
+                                case 3:
+                                    winnerTrophyItem.classList.add("gold");
+                                    break;
+                                default:
+                                    break;
+                            }
+
                             /**
                              * Generate new spin wheel for new winner
                              */
@@ -179,6 +194,7 @@
                             /**
                              * Reveal winner Id number by number
                              */
+                            var spinInterval = this.state.spinDuration + 0;
                             count = 0;
                             const t = setInterval(function () {
                                 var winnerItem = $("<span>", {
@@ -196,24 +212,33 @@
                                  */
                                 if (count === winnerNumber.length) {
                                     clearInterval(t);
-                                    // this.state.spinning = false;
 
                                     /**
                                      * Update winner name
                                      */
                                     var winnerNameText = document.createElement('h1');
                                     winnerNameText.classList.add("animated", "lightSpeedIn");
-                                    winnerNameText.style['font-size'] = '100px';
+                                    winnerNameText.style['font-size'] = '60px';
+                                    winnerNameText.style['text-align'] = 'center';
                                     winnerNameText.innerHTML = winnerName;
                                     winnerNameText.style.display = 'none';
                                     
                                     nameContainer.querySelectorAll('*').forEach(n => n.remove());
                                     nameContainer.appendChild(winnerNameText);
                                     winnerNameText.style.display = 'block';
-                                    audio.pause();
+
+                                    /**
+                                     * Smoothly stop audio
+                                     */
+                                    $('#lottery-sound').animate({volume: 0.1}, 1500);
+                                    const audioStop = setInterval(function() {
+                                        audio.pause();
+                                        audio.volume = 1;
+                                        clearInterval(audioStop);
+                                    }, 2000);
                                     window.spinning = false;
                                 }
-                            }, this.state.spinDuration);
+                            }, spinInterval);
                         });
                     })
                 });
@@ -283,9 +308,11 @@
         }
 
         handleInputDone(e) {
+            console.log('Input done');
             $('.main-container').removeClass('show animated fadeOutUp');
             $('.main-container').addClass('hide');
             $('#start-view-container').addClass('show animated fadeInDown');
+            document.body.style.backgroundImage = 'url(../images/background-slot.png)';
         }
 
         setWithoutReplacement() {
