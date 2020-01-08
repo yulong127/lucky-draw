@@ -106,7 +106,6 @@
              * New round
              */
             if ($('.item-list li').length > 0) {
-                // $('#winner-trophy').append('<span>abc</span>');
                 machine.rand();
             } else {
                 /**
@@ -133,13 +132,16 @@
             }
         });
         $('body').on('keydown', function (e) {
-            if ((e.keyCode || e.which) == 13 && $('#edit-item-container').is(':hidden')) {
+            if ((e.keyCode || e.which) == 8) {
+                window.isReroll = true;
+            }
+            if ((((e.keyCode || e.which) == 13) || ((e.keyCode || e.which) == 8)) && $('#edit-item-container').is(':hidden')) {
                 if (window.winnerCount == undefined) window.winnerCount = 0;
                 if (!window.spinning) {
                     /**
                      * Spin 3 times
                      */
-                    if (window.winnerCount < 3) {
+                    if ((window.winnerCount < 3) || e.keyCode == 8) {
                         go();
                         console.log("winnerCount: " + window.winnerCount);
                     }

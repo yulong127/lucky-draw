@@ -124,25 +124,28 @@
                             }
 
                             /**
-                             * Animate-in the last winner if exist
+                             * Append last winner (if exist) to trophy list
                              */
                             var winnerList = document.getElementById('winner-trophy-list');
-                            // if (winnerList.hasChildNodes()) {
-                            //     const t = setInterval(function () {
-                            //         winnerList.lastChild.style.display = 'block';
-                            //         clearInterval(t);
-                            //     }, 500);
-                            // }
 
                             /**
-                             * Add the new winner to announcement list
+                             * Generate trophy item
                              */
                             var winnerTrophyItem = document.createElement('h1');
                             winnerTrophyItem.classList.add("winner-trophy-item");
                             winnerTrophyItem.innerHTML = winnerId + '<br/>' + winnerName;
 
+                            /**
+                             * If new roll, append. If reroll, replace first child
+                             */
+                            if(window.isReroll) {
+                                winnerList.removeChild(winnerList.firstElementChild);
+                                window.isReroll = false;
+                            }
+                            else {
+                                window.winnerCount++;
+                            }
                             winnerList.insertBefore(winnerTrophyItem, winnerList.firstChild);
-                            window.winnerCount++;
 
                             /**
                              * Decorate winner item based on position
