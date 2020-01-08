@@ -313,6 +313,9 @@
             $('.main-container').addClass('hide');
             $('#start-view-container').addClass('show animated fadeInDown');
             document.body.style.backgroundImage = 'url(../images/background-slot.png)';
+            if (window.winnerCount > 2) {
+                $('#ready-heading').addClass('hide');
+            }
         }
 
         setWithoutReplacement() {
