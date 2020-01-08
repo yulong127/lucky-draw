@@ -143,7 +143,6 @@
                      */
                     if ((window.winnerCount < 3) || e.keyCode == 8) {
                         go();
-                        console.log("winnerCount: " + window.winnerCount);
                     }
                     /**
                      * Announce winners

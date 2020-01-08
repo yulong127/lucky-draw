@@ -99,6 +99,7 @@
                             const audio = document.getElementById("lottery-sound");
                             audio.play();
                             window.spinning = true;
+                            var spinDuration = this.state.spinDuration + 0;
 
                             // TODO convert these to React style
                             $('.main-container').removeClass('show animated fadeOutUp');
@@ -112,7 +113,6 @@
                             const winnerId = winner[0].replace(' ', '');
                             const winnerNumber = winnerId.replace('-', '');
                             const winnerName = winner[1];
-                            console.log("winner: " + winner);
                             
                             /**
                              * Animate-out current winner if exist
@@ -139,12 +139,15 @@
                              * If new roll, append. If reroll, replace first child
                              */
                             if(window.isReroll) {
+                                console.log("Reroll");
                                 winnerList.removeChild(winnerList.firstElementChild);
-                                window.isReroll = false;
                             }
                             else {
+                                console.log("New roll");
                                 window.winnerCount++;
                             }
+                            console.log("Winner: " + winner);
+                            console.log("winnerCount: " + window.winnerCount);
                             winnerList.insertBefore(winnerTrophyItem, winnerList.firstChild);
 
                             /**
@@ -159,10 +162,14 @@
                                     break;
                                 case 3:
                                     winnerTrophyItem.classList.add("gold");
+                                    if (window.isReroll) {
+                                        spinDuration = spinDuration * 2;
+                                    }
                                     break;
                                 default:
                                     break;
                             }
+                            window.isReroll = false;
 
                             /**
                              * Generate new spin wheel for new winner
@@ -197,7 +204,6 @@
                             /**
                              * Reveal winner Id number by number
                              */
-                            var spinInterval = this.state.spinDuration + 0;
                             count = 0;
                             const t = setInterval(function () {
                                 var winnerItem = $("<span>", {
@@ -241,7 +247,7 @@
                                     }, 2000);
                                     window.spinning = false;
                                 }
-                            }, spinInterval);
+                            }, spinDuration);
                         });
                     })
                 });
