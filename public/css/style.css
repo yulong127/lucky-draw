@@ -218,7 +218,7 @@ table {
 
 .span_2_of_3 {
     width: 60%;
-    margin-top: 40px;
+    margin-top: 80px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -5826,16 +5826,16 @@ input[type="checkbox"]+span:hover {
 .winner-trophy-item.bronze {
     color: coral;
     font-weight: lighter;
-    font-size: 1.7em
+    font-size: 2em
 }
 .winner-trophy-item.silver {
     color: silver;
     font-weight: normal;
-    font-size: 2em;
+    font-size: 2.5em;
 }
 .winner-trophy-item.gold {
     color: gold;
-    font-size: 3em;
+    font-size: 4em;
 }
 
 #copyright {
