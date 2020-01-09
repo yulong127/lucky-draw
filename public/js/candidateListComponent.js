@@ -113,7 +113,7 @@
 
                             let winner = (poorMan + '').split('\t');
                             let winnerId = winner[0].replace(' ', '');
-                            let winnerNumber = winnerId.replace('-', '');
+                            let winnerNumber = '01234' //winnerId.replace('-', '');
                             let winnerName = winner[1];
 
 
@@ -194,6 +194,10 @@
                              * Generate new spin wheel for new winner
                              */
                             const container = $('#winner-id-container').empty();
+
+                            if (winnerNumber.length === 5 || winnerNumber.length < 6) {
+                                winnerNumber += ' '
+                            }
 
                             let count = 0;
                             for (var i = 0; i < winnerNumber.length; i++) {
