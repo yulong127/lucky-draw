@@ -21,7 +21,7 @@ function deriveNumberOfDrawsAndEmit() {
     }
 }
 
-let candidates = require('../conf').preloadCandidates;
+let candidates = require('../conf').environment;
 
 router.post("/addCandidate", function (req, res) {
     const val = req.param('candidate');
