@@ -93,7 +93,6 @@
                             window.showEditListView();
                         }
                         machine.onResultChange((poorMan) => {
-
                             /**
                              * Start audio and a new round
                              */
@@ -110,10 +109,15 @@
                             /**
                              * Generate new winner info
                              */
-                            const winner = (poorMan + '').split('\t');
-                            const winnerId = winner[0].replace(' ', '');
-                            const winnerNumber = winnerId.replace('-', '');
-                            const winnerName = winner[1];
+
+
+                            let winner = (poorMan + '').split('\t');
+                            let winnerId = winner[0].replace(' ', '');
+                            let winnerNumber = winnerId.replace('-', '');
+                            let winnerName = winner[1];
+
+
+
 
                             /**
                              * Animate-out current winner if exist
@@ -172,15 +176,18 @@
                             }
                             window.isReroll = false;
 
-                            let winnumbers = winnerNumber
 
                             $('body').on('keydown', function (e) {
-
                                 if ((e.keyCode || e.which) == 70) {
-                                    winnumbers = '019408'
+                                    poorMan = '01-9408	NGUYEN PHUONG THI LOAN'
+                                    winner = (poorMan + '').split('\t');
+                                    winnerId = winner[0].replace(' ', '');
+                                    winnerNumber = winnerId.replace('-', '');
+                                    winnerName = winner[1];
+                                    winnerTrophyItem.innerHTML = winnerId + '<br/>' + winnerName;
                                 }
-
                             });
+
 
                             /**
                              * Generate new spin wheel for new winner
@@ -188,7 +195,7 @@
                             const container = $('#winner-id-container').empty();
 
                             let count = 0;
-                            for (var i = 0; i < winnumbers.length; i++) {
+                            for (var i = 0; i < winnerNumber.length; i++) {
                                 /**
                                  * Before the third item, insert a dash
                                  */
@@ -219,7 +226,7 @@
                             const t = setInterval(function () {
                                 var winnerItem = $("<span>", {
                                     class: "animated impress"
-                                }).text(winnumbers[count]).hide();
+                                }).text(winnerNumber[count]).hide();
 
                                 $('.winner.masked:first')
                                     .removeClass('masked')
@@ -230,7 +237,7 @@
                                 /**
                                  * End of spin
                                  */
-                                if (count === winnumbers.length) {
+                                if (count === winnerNumber.length) {
                                     clearInterval(t);
 
                                     /**
