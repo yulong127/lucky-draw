@@ -127,6 +127,7 @@
                              * Append last winner (if exist) to trophy list
                              */
                             var winnerList = document.getElementById('winner-trophy-list');
+                            var winnerBronzeList = document.getElementById('winner-trophy-bronze');
 
                             /**
                              * Generate trophy item
@@ -138,9 +139,14 @@
                             /**
                              * If new roll, append. If reroll, replace first child
                              */
-                            if(window.isReroll) {
+                            if (window.isReroll) {
                                 console.log("Reroll");
-                                winnerList.removeChild(winnerList.firstElementChild);
+                                if (window.winnerCount < 3) {
+                                    winnerBronzeList.removeChild(winnerBronzeList.firstElementChild);
+                                }
+                                if (window.winnerCount == 3 || window.winnerCount == 4) {
+                                    winnerList.removeChild(winnerList.firstElementChild);
+                                }
                             }
                             else {
                                 console.log("New roll");
@@ -148,19 +154,25 @@
                             }
                             console.log("Winner: " + winner);
                             console.log("winnerCount: " + window.winnerCount);
-                            winnerList.insertBefore(winnerTrophyItem, winnerList.firstChild);
 
                             /**
                              * Decorate winner item based on position
                              */
                             switch (window.winnerCount) {
                                 case 1:
+                                    winnerBronzeList.insertBefore(winnerTrophyItem, winnerBronzeList.firstChild);
                                     winnerTrophyItem.classList.add("bronze");
                                     break;
                                 case 2:
-                                    winnerTrophyItem.classList.add("silver");
+                                        winnerBronzeList.insertBefore(winnerTrophyItem, winnerBronzeList.firstChild);
+                                    winnerTrophyItem.classList.add("bronze");
                                     break;
                                 case 3:
+                                        winnerList.insertBefore(winnerTrophyItem, winnerList.firstChild);
+                                    winnerTrophyItem.classList.add("silver");
+                                    break;
+                                case 4:
+                                        winnerList.insertBefore(winnerTrophyItem, winnerList.firstChild);
                                     winnerTrophyItem.classList.add("gold");
                                     if (window.isReroll) {
                                         spinDuration = spinDuration * 2;
