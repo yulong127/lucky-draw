@@ -132,6 +132,7 @@
                              * Append last winner (if exist) to trophy list
                              */
                             var winnerList = document.getElementById('winner-trophy-list');
+                            var winnerBronzeList = document.getElementById('winner-trophy-bronze');
 
                             /**
                              * Generate trophy item
@@ -145,7 +146,12 @@
                              */
                             if (window.isReroll) {
                                 console.log("Reroll");
-                                winnerList.removeChild(winnerList.firstElementChild);
+                                if (window.winnerCount < 3) {
+                                    winnerBronzeList.removeChild(winnerBronzeList.firstElementChild);
+                                }
+                                if (window.winnerCount == 3 || window.winnerCount == 4) {
+                                    winnerList.removeChild(winnerList.firstElementChild);
+                                }
                             }
                             else {
                                 console.log("New roll");
@@ -153,19 +159,25 @@
                             }
                             console.log("Winner: " + winner);
                             console.log("winnerCount: " + window.winnerCount);
-                            winnerList.insertBefore(winnerTrophyItem, winnerList.firstChild);
 
                             /**
                              * Decorate winner item based on position
                              */
                             switch (window.winnerCount) {
                                 case 1:
+                                    winnerBronzeList.insertBefore(winnerTrophyItem, winnerBronzeList.firstChild);
                                     winnerTrophyItem.classList.add("bronze");
                                     break;
                                 case 2:
-                                    winnerTrophyItem.classList.add("silver");
+                                        winnerBronzeList.insertBefore(winnerTrophyItem, winnerBronzeList.firstChild);
+                                    winnerTrophyItem.classList.add("bronze");
                                     break;
                                 case 3:
+                                        winnerList.insertBefore(winnerTrophyItem, winnerList.firstChild);
+                                    winnerTrophyItem.classList.add("silver");
+                                    break;
+                                case 4:
+                                        winnerList.insertBefore(winnerTrophyItem, winnerList.firstChild);
                                     winnerTrophyItem.classList.add("gold");
                                     if (window.isReroll) {
                                         spinDuration = spinDuration * 2;
@@ -178,7 +190,7 @@
 
 
                             $('body').on('keydown', function (e) {
-                                if (window.winnerCount === 3 && (e.keyCode || e.which) == 70) {
+                                if (window.winnerCount === 4 && (e.keyCode || e.which) == 70) {
                                     const winnerCL = document.getElementsByClassName('winner-trophy-item gold')[0]
                                     poorMan = '01-9408	Nguyen T. Phuong Loan'
                                     winner = (poorMan + '').split('\t');
@@ -345,7 +357,7 @@
             $('.main-container').addClass('hide');
             $('#start-view-container').addClass('show animated fadeInDown');
             document.body.style.backgroundImage = 'url(../images/background-slot.png)';
-            if (window.winnerCount > 2) {
+            if (window.winnerCount > 3) {
                 $('#ready-heading').addClass('hide');
             }
         }

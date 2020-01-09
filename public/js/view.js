@@ -141,7 +141,7 @@
                     /**
                      * Spin 3 times
                      */
-                    if ((window.winnerCount < 3) || e.keyCode == 8) {
+                    if ((window.winnerCount < 4) || e.keyCode == 8) {
                         go();
                     }
                     /**

@@ -10,7 +10,7 @@ let settings = {
     numberOfDraws: 1,
     winnerCodeFontSize: 200,
     winnerNameFontSize: 100,
-    spinDuration: 2000
+    spinDuration: 200
 };
 
 function deriveNumberOfDrawsAndEmit() {
