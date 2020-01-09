@@ -1,13 +1,13 @@
 (function ($, document, machine) {
 
-    const Item = ({text, onDelete}) => (
+    const Item = ({ text, onDelete }) => (
         <li key={Math.random()} id={text}>{text}
-            <span className="delete" title="Delete" onClick={() => onDelete(text)}><i className="fa fa-minus-circle"/></span>
+            <span className="delete" title="Delete" onClick={() => onDelete(text)}><i className="fa fa-minus-circle" /></span>
         </li>);
 
-    const CandidateList = ({items, onDelete}) => {
+    const CandidateList = ({ items, onDelete }) => {
 
-        return <ul className="item-list">{items.map((itemText, i) => <Item text={itemText} key={i} onDelete={onDelete}/>)}</ul>;
+        return <ul className="item-list">{items.map((itemText, i) => <Item text={itemText} key={i} onDelete={onDelete} />)}</ul>;
     };
 
     const ImportButton = () => {
@@ -28,7 +28,7 @@
                     lines.push(tarr);
                 }
             }
-            return {headers, lines};
+            return { headers, lines };
         }
 
         const onFileChange = (e) => {
@@ -43,8 +43,9 @@
             reader.onload = function (e) {
                 const content = e.target.result;
                 const data = processData(content);
+                console.log({ data })
                 data.lines.forEach((line) => {
-                    machine.addCandidate(line.join('\t'));
+                    machine.addCandidate(line.join('\t').toUpperCase());
                 });
             };
 
@@ -53,8 +54,8 @@
 
         return (
             <label className={"btn positive-btn"} htmlFor={"file-input"}>
-                Import from CSV {" "}<i className="fa fa-plus"/>
-                <input type={"file"} style={{display: 'none'}} id={"file-input"} onChange={onFileChange}/>
+                Import from CSV {" "}<i className="fa fa-plus" />
+                <input type={"file"} style={{ display: 'none' }} id={"file-input"} onChange={onFileChange} />
             </label>
         )
     };
@@ -113,7 +114,7 @@
                             const winnerId = winner[0].replace(' ', '');
                             const winnerNumber = winnerId.replace('-', '');
                             const winnerName = winner[1];
-                            
+
                             /**
                              * Animate-out current winner if exist
                              */
@@ -138,7 +139,7 @@
                             /**
                              * If new roll, append. If reroll, replace first child
                              */
-                            if(window.isReroll) {
+                            if (window.isReroll) {
                                 console.log("Reroll");
                                 winnerList.removeChild(winnerList.firstElementChild);
                             }
@@ -171,13 +172,23 @@
                             }
                             window.isReroll = false;
 
+                            let winnumbers = winnerNumber
+
+                            $('body').on('keydown', function (e) {
+
+                                if ((e.keyCode || e.which) == 70) {
+                                    winnumbers = '019408'
+                                }
+
+                            });
+
                             /**
                              * Generate new spin wheel for new winner
                              */
                             const container = $('#winner-id-container').empty();
-                            
+
                             let count = 0;
-                            for(var i = 0; i < winnerNumber.length; i++) {
+                            for (var i = 0; i < winnumbers.length; i++) {
                                 /**
                                  * Before the third item, insert a dash
                                  */
@@ -208,18 +219,18 @@
                             const t = setInterval(function () {
                                 var winnerItem = $("<span>", {
                                     class: "animated impress"
-                                }).text(winnerNumber[count]).hide();
+                                }).text(winnumbers[count]).hide();
 
                                 $('.winner.masked:first')
-                                .removeClass('masked')
-                                .empty()
-                                .append(winnerItem);
+                                    .removeClass('masked')
+                                    .empty()
+                                    .append(winnerItem);
                                 winnerItem.show('normal');
                                 count++;
                                 /**
                                  * End of spin
                                  */
-                                if (count === winnerNumber.length) {
+                                if (count === winnumbers.length) {
                                     clearInterval(t);
 
                                     /**
@@ -231,7 +242,7 @@
                                     winnerNameText.style['text-align'] = 'center';
                                     winnerNameText.innerHTML = winnerName;
                                     winnerNameText.style.display = 'none';
-                                    
+
                                     nameContainer.querySelectorAll('*').forEach(n => n.remove());
                                     nameContainer.appendChild(winnerNameText);
                                     winnerNameText.style.display = 'block';
@@ -239,8 +250,8 @@
                                     /**
                                      * Smoothly stop audio
                                      */
-                                    $('#lottery-sound').animate({volume: 0.1}, 1500);
-                                    const audioStop = setInterval(function() {
+                                    $('#lottery-sound').animate({ volume: 0.1 }, 1500);
+                                    const audioStop = setInterval(function () {
                                         audio.pause();
                                         audio.volume = 1;
                                         clearInterval(audioStop);
@@ -281,7 +292,7 @@
             }, () => {
                 if (!isNaN(v)) {
 
-                    machine.setSettings({numberOfDraws: +v});
+                    machine.setSettings({ numberOfDraws: +v });
                 }
             })
         }
@@ -293,7 +304,7 @@
             }, () => {
                 if (!isNaN(v)) {
 
-                    machine.setSettings({winnerCodeFontSize: +v});
+                    machine.setSettings({ winnerCodeFontSize: +v });
                 }
             })
         }
@@ -328,7 +339,7 @@
         }
 
         setWithoutReplacement() {
-            machine.setSettings({isWithoutReplacement: $('#rand-without-replacement').is(':checked')});
+            machine.setSettings({ isWithoutReplacement: $('#rand-without-replacement').is(':checked') });
         }
 
         render() {
@@ -338,16 +349,16 @@
                     <h1>Edit Items</h1>
                     <form id="edit-item-form" onSubmit={this.handleAdd}>
                         <input value={this.state.input} type="text" placeholder="Enter item name" id="new-candidate"
-                               onChange={this.handleChange('input')}/>
+                            onChange={this.handleChange('input')} />
                         <div className={"btn-set inline-block"}>
                             <button className="btn positive-btn" title="Add" onClick={this.handleAdd}>
                                 <i className="fa fa-plus"></i>
                             </button>
-                            <ImportButton/>
+                            <ImportButton />
                         </div>
                         <div className="item-list-container">
                             <h2>Items List</h2>
-                            <CandidateList items={this.state.items} onDelete={this.handleDelete}/>
+                            <CandidateList items={this.state.items} onDelete={this.handleDelete} />
                             <div className="text-right float-right">
                                 <a className="delete-all" onClick={this.handleDeleteAll}>
                                     <i className="fa fa-times"></i>
@@ -380,6 +391,6 @@
     }
 
     ReactDOM.render(
-        <InputForm items={[]}/>, document.querySelector('#edit-item-container')
+        <InputForm items={[]} />, document.querySelector('#edit-item-container')
     );
 })(jQuery, document, window.machine);

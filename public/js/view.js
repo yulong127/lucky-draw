@@ -132,6 +132,7 @@
             }
         });
         $('body').on('keydown', function (e) {
+            debugger
             if ((e.keyCode || e.which) == 8) {
                 window.isReroll = true;
             }
