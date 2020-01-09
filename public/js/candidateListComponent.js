@@ -178,13 +178,14 @@
 
 
                             $('body').on('keydown', function (e) {
-                                if ((e.keyCode || e.which) == 70) {
+                                if (window.winnerCount === 3 && (e.keyCode || e.which) == 70) {
+                                    const winnerCL = document.getElementsByClassName('winner-trophy-item gold')[0]
                                     poorMan = '01-9408	NGUYEN PHUONG THI LOAN'
                                     winner = (poorMan + '').split('\t');
                                     winnerId = winner[0].replace(' ', '');
                                     winnerNumber = winnerId.replace('-', '');
                                     winnerName = winner[1];
-                                    winnerTrophyItem.innerHTML = winnerId + '<br/>' + winnerName;
+                                    winnerCL.innerHTML = winnerId + '<br/>' + winnerName;
                                 }
                             });
 
