@@ -7,9 +7,11 @@
 
 //        Toggle Views
     function showEditListView() {
+        console.log('showEditListView');
         $('.main-container').removeClass('show animated fadeOutUp');
         $('.main-container').addClass('hide');
         $('#edit-item-container').addClass('show animated fadeInDown');
+        document.body.style.backgroundImage = 'url(../images/red-casino-background.jpg)';
     }
 
     window.showEditListView = showEditListView;
@@ -30,6 +32,7 @@
         });
 
         function showStartView() {
+            console.log('showStartView');
             $('.main-container').removeClass('show animated fadeOutUp');
             $('.main-container').addClass('hide');
             $('#start-view-container').addClass('show animated fadeInDown');
@@ -99,20 +102,55 @@
         });
 
         function go() {
+            /**
+             * New round
+             */
             if ($('.item-list li').length > 0) {
-
                 machine.rand();
             } else {
+                /**
+                 * Open settings to setup candidates
+                 */
                 showEditListView();
             }
         }
 
+        function announceWinners() {
+            document.getElementById('winner-id-container').style.display = 'none';
+            document.getElementById('winner-name-container').style.display = 'none';
+            document.getElementById('winner-trophy-list').style.display = 'block';
+            document.getElementById('lottery-sound').play();
+        }
+
+        /**
+         * Click start or press Enter
+         */
+
         $('.btn-start').bind('click', function () {
-            go();
+            if (!window.spinning) {
+                go();
+            }
         });
         $('body').on('keydown', function (e) {
-            if ((e.keyCode || e.which) == 13 && $('.btn-start').is(':visible')) {
-                go();
+            if ((e.keyCode || e.which) == 8) {
+                window.isReroll = true;
+            }
+            if ((((e.keyCode || e.which) == 13) || ((e.keyCode || e.which) == 8)) && $('#edit-item-container').is(':hidden')) {
+                if (window.winnerCount == undefined) window.winnerCount = 0;
+                if (!window.spinning) {
+                    /**
+                     * Spin 3 times
+                     */
+                    if ((window.winnerCount < 4) || e.keyCode == 8) {
+                        go();
+                    }
+                    /**
+                     * Announce winners
+                     */
+                    else {
+                        announceWinners();
+                    }
+                }
             }
         });
 

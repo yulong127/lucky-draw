@@ -3,23 +3,25 @@ const express = require('express'),
 const _ = require('lodash'),
     io = require('../lib/io');
 
-const settingList = ["isWithoutReplacement", "numberOfDraws", "fontSize"];
-
-let candidates = require('../conf').preloadCandidates;
+const settingList = ["isWithoutReplacement", "numberOfDraws", "winnerCodeFontSize", "winnerNameFontSize"];
 
 let settings = {
-    isWithoutReplacement: false,
+    isWithoutReplacement: true,
     numberOfDraws: 1,
-    fontSize: 24
+    winnerCodeFontSize: 200,
+    winnerNameFontSize: 100,
+    spinDuration: 200
 };
 
 function deriveNumberOfDrawsAndEmit() {
-    const newNDraws = Math.max(1, Math.min(candidates.length, settings.numberOfDraws));
+    const newNDraws = 1;
     if (newNDraws !== settings.numberOfDraws) {
         settings.numberOfDraws = newNDraws;
         io.emitSettings(settings);
     }
 }
+
+let candidates = require('../conf').environment;
 
 router.post("/addCandidate", function (req, res) {
     const val = req.param('candidate');
@@ -34,6 +36,7 @@ router.post("/addCandidate", function (req, res) {
 router.post('/removeCandidate', function (req, res) {
     const val = req.param('candidate');
     candidates = _.without(candidates, val);
+    console.log("Candidate removed: " + poorMan);
     boardcastCandidates();
     deriveNumberOfDrawsAndEmit();
     res.end();
@@ -57,13 +60,13 @@ router.post("/settings", (req, res) => {
 router.get('/rand', function (req, res) {
     const result = [];
     for (let i = 0; i < settings.numberOfDraws; i++) {
-
         const randomNumber = _.random(candidates.length - 1),
             poorMan = candidates[randomNumber];
         result.push(poorMan);
         if (settings.isWithoutReplacement) {
             candidates = _.without(candidates, poorMan);
         }
+        console.log("Candidates remaining: " + candidates.length);
     }
 
     io.emitRandResult(result);

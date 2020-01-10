@@ -15,7 +15,7 @@
 </head>
 <body onload="window.scrollTo(0, 1);">
 <div class="wrapper">
-    <div class="col span_1_of_3">
+    <div class="span_1_of_3">
         <div class="logo tooltip-container animated slideInLeft">
             <img src="images/logo.svg" alt="Lucky Draw" class="shadowed"/>
             <div class="tooltip hide">
@@ -24,41 +24,41 @@
             </div>
         </div>
     </div>
-    <div class="col span_2_of_3">
+    <div class="span_2_of_3">
         <!--Form-->
         <div class="main-container hide" id="edit-item-container">
         </div>
 
         <!--Start View-->
         <div class="main-container animated fadeInDown" id="start-view-container">
-            <h1 class="ready-heading">Ready?</h1>
-            <button class="btn-start btn positive-btn">
+            <h1 id="ready-heading" class="animated zoomIn">Ready?</h1>
+            <!-- <button class="btn-start btn positive-btn">
                 <i class="fa fa-compass show animated rotateIn"></i>
                 <span class="text hide animated">Go!</span>
-            </button>
-        </div>
-
-        <!--Start View-->
-        <div class="main-container hide" id="rolling-view-container">
-            <div class="lds-circle"><div></div></div>
+            </button> -->
         </div>
 
         <!--Result-->
         <div class="main-container hide" id="result-view-container">
-            <div id="winner-container">
+            <div id="winner-id-container">
 
             </div>
-            <button class="btn-start btn positive-btn">
+            <div id="winner-name-container">
+
+            </div>
+            <div id="winner-trophy-list" class="animated rotateIn" style="display: none;">
+                <div id="winner-trophy-bronze"></div>
+            </div>
+            <!-- <button class="btn-start btn positive-btn">
                 <i class="fa fa-compass show animated rotateIn"></i>
                 <span class="text hide animated">Again</span>
-            </button>
-            <div style="margin: 4rem 0 1rem .5rem;">
-                <button class="btn" id="save-result">Save Result</button>
-            </div>
+            </button> -->
+            <audio id="lottery-sound" src="sounds/lottery.mp3" loop="loop"></audio>
         </div>
 
     </div>
 </div>
+<!-- <div id="copyright"><h2>Powered by M+</h2></div> -->
 <script src="js/jquery-2.1.1.min.js"></script>
 <script src="js/filesaver/FileSaver.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
@@ -68,5 +68,11 @@
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <script type="text/jsx" src="js/candidateListComponent.js"></script>
+<!-- <script>
+    function playSpinSound(){
+        var audio = document.getElementById("audio");
+        audio.play();
+    }
+</script> -->
 </body>
 </html>
