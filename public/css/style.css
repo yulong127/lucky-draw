@@ -5820,7 +5820,7 @@ input[type="checkbox"]+span:hover {
 }
 
 #winner-name-container h1 {
-    text-shadow: 5px 5px 5px rgba(0,0,0, 0.6);
+    text-shadow: 5px 5px 5px rgba(0,0,0, 0.3);
 }
 
 .winner {

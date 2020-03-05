@@ -66,8 +66,7 @@ router.post("/settings", (req, res) => {
 });
 
 router.get('/rand', function (req, res) {
-    const result = [];
-    console.log(`raw data[${increment1[0]}]: ${increment[0]}`)
+    const result = []
     for (let i = 0; i < settings.numberOfDraws; i++) {
         let randomNumber = _.random(candidates.length - 1)
         let poorMan = candidates[randomNumber]
