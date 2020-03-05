@@ -5789,7 +5789,8 @@ input[type="checkbox"]+span:hover {
 #ready-heading {
     font-size: 200px;
     text-align: center;
-    margin-top: 200px;
+    margin-top: 150px;
+    margin-left: 100px;
     -webkit-animation-delay: 1s;
     animation-delay: 1s;
 }
