@@ -127,6 +127,8 @@
                              * Append last winner (if exist) to trophy list
                              */
                             var winnerList = document.getElementById('winner-trophy-list');
+                            var winnerGoldList = document.getElementById('winner-trophy-gold');
+                            var winnerSilverList = document.getElementById('winner-trophy-silver');
                             var winnerBronzeList = document.getElementById('winner-trophy-bronze');
 
                             /**
@@ -168,11 +170,11 @@
                                     winnerTrophyItem.classList.add("bronze");
                                     break;
                                 case 3:
-                                        winnerList.insertBefore(winnerTrophyItem, winnerList.firstChild);
+                                        winnerSilverList.insertBefore(winnerTrophyItem, winnerSilverList.firstChild);
                                     winnerTrophyItem.classList.add("silver");
                                     break;
                                 case 4:
-                                        winnerList.insertBefore(winnerTrophyItem, winnerList.firstChild);
+                                        winnerGoldList.insertBefore(winnerTrophyItem, winnerGoldList.firstChild);
                                     winnerTrophyItem.classList.add("gold");
                                     if (window.isReroll) {
                                         spinDuration = spinDuration * 2;
@@ -333,7 +335,8 @@
             $('.main-container').removeClass('show animated fadeOutUp');
             $('.main-container').addClass('hide');
             $('#start-view-container').addClass('show animated fadeInDown');
-            document.body.style.backgroundImage = 'url(../images/background-slot.png)';
+            document.body.style.backgroundImage = 'url(../images/background-womens-days.png)';
+            document.getElementsByTagName('body')[0].style['background-blend-mode']  = 'multiply';
             if (window.winnerCount > 2) {
                 $('#ready-heading').addClass('hide');
             }

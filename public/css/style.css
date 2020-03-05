@@ -5829,19 +5829,19 @@ input[type="checkbox"]+span:hover {
     justify-content: center; align-items: center";
 }
 
-.winner-trophy-item.bronze {
+#winner-trophy-bronze {
     color: coral;
     font-weight: lighter;
     font-size: 2em;
     margin-left: auto;
     margin-right: auto;
 }
-.winner-trophy-item.silver {
+#winner-trophy-silver {
     color: silver;
     font-weight: normal;
     font-size: 2.5em;
 }
-.winner-trophy-item.gold {
+#winner-trophy-gold {
     color: gold;
     font-size: 4em;
 }

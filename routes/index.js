@@ -10,7 +10,11 @@ let settings = {
     numberOfDraws: 1,
     winnerCodeFontSize: 200,
     winnerNameFontSize: 100,
-    spinDuration: 2000
+    spinDuration: 200,
+    totalGold: 1,
+    totalSilver: 5,
+    totalBronze: 10,
+    totalPlastic: 0
 };
 
 function deriveNumberOfDrawsAndEmit() {
