@@ -199,17 +199,13 @@
                                     container.append($("<h1>", {
                                         class: "winner",
                                         css: {
-                                            'font-size': this.state.winnerCodeFontSize + 'px',
                                             'width': '0.6em'
                                         }
                                     }).append($("<span>").text("-")));
                                 }
 
                                 container.append($("<h1>", {
-                                    class: "winner masked",
-                                    css: {
-                                        'font-size': this.state.winnerCodeFontSize + 'px'
-                                    }
+                                    class: "winner masked"
                                 }).append($("<span>", {
                                     class: "spinWheel"
                                 }).text("1 2 3 4 5 6 7 8 9 0")));
@@ -241,8 +237,6 @@
                                      */
                                     var winnerNameText = document.createElement('h1');
                                     winnerNameText.classList.add("animated", "lightSpeedIn");
-                                    winnerNameText.style['font-size'] = '60px';
-                                    winnerNameText.style['text-align'] = 'center';
                                     winnerNameText.innerHTML = winnerName;
                                     winnerNameText.style.display = 'none';
                                     
@@ -335,8 +329,8 @@
             $('.main-container').removeClass('show animated fadeOutUp');
             $('.main-container').addClass('hide');
             $('#start-view-container').addClass('show animated fadeInDown');
-            document.body.style.backgroundImage = 'url(../images/background-womens-days.png)';
-            document.getElementsByTagName('body')[0].style['background-blend-mode']  = 'multiply';
+            document.body.style.backgroundImage = 'url(../images/viber_image_2020-03-05_18-48-04.jpg)';
+            // document.getElementsByTagName('body')[0].style['background-blend-mode']  = 'multiply';
             if (window.winnerCount > 2) {
                 $('#ready-heading').addClass('hide');
             }
