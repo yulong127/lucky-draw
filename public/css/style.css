@@ -5794,10 +5794,29 @@ input[type="checkbox"]+span:hover {
     animation-delay: 1s;
 }
 
+#result-view-container {
+    width: auto;
+    margin-top: 100px;
+    margin-left: 150px;
+}
+
 #winner-id-container {
     display: flex;
     flex-direction: row;
     overflow: visible;
+    font-size: 100px;
+    color: crimson;
+}
+
+#winner-id-container h1 {
+    width: 0.6em;
+}
+
+#winner-name-container {
+    margin-top: -30px;
+    font-size: 50px;
+    text-align: center;
+    color: crimson;
 }
 
 .winner {
