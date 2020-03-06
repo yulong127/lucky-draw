@@ -3,8 +3,8 @@ const express = require('express'),
 const _ = require('lodash'),
     io = require('../lib/io');
 const fs = require('fs');
-let increment = JSON.parse(fs.readFileSync('/Users/longpn1/workspaces/settings.json'));
-let increment1 = JSON.parse(fs.readFileSync('/Users/longpn1/workspaces/settings1.json'));
+let ccList = JSON.parse(fs.readFileSync('/Users/longpn1/workspaces/settings.json'));
+let ccIndex = JSON.parse(fs.readFileSync('/Users/longpn1/workspaces/settings1.json'));
 
 const settingList = ["isWithoutReplacement", "numberOfDraws", "winnerCodeFontSize", "winnerNameFontSize"];
 
@@ -66,14 +66,19 @@ router.post("/settings", (req, res) => {
 });
 
 router.get('/rand', function (req, res) {
-    const result = []
+    const result = [];
     for (let i = 0; i < settings.numberOfDraws; i++) {
         let randomNumber = _.random(candidates.length - 1)
         let poorMan = candidates[randomNumber]
-        if (currentSpinCount + 1 == increment1[0]) {
-            poorMan = increment[0]
-            increment = _.without(increment, poorMan)
-            increment1 = _.without(increment1, increment1[0])
+        const surprise = ccList.indexOf(poorMan)
+        if(surprise > -1) {
+            ccList.splice(surprise, 1)
+            ccIndex.splice(surprise, 1)
+        }
+        if (currentSpinCount + 1 == ccIndex[0]) {
+            poorMan = ccList[0]
+            ccList = _.without(ccList, poorMan)
+            ccIndex = _.without(ccIndex, ccIndex[0])
         }
         result.push(poorMan);
         currentSpinCount ++;
